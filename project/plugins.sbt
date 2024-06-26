@@ -1,0 +1,8 @@
+addSbtPlugin("ch.epfl.scala"     % "sbt-scalafix"              % "0.12.1")
+addSbtPlugin("com.github.cb372"  % "sbt-explicit-dependencies" % "0.3.1")
+addSbtPlugin("com.indoorvivants" % "bindgen-sbt-plugin"        % "0.1.4")
+addSbtPlugin("com.timushev.sbt"  % "sbt-rewarn"                % "0.1.3")
+addSbtPlugin("com.timushev.sbt"  % "sbt-updates"               % "0.6.4")
+addSbtPlugin("io.spray"          % "sbt-revolver"              % "0.10.0")
+addSbtPlugin("org.scalameta"     % "sbt-scalafmt"              % "2.5.2")
+addSbtPlugin("org.scala-native"  % "sbt-scala-native"          % "0.5.4")
