@@ -1,11 +1,16 @@
 # Scala Native Playground
 Exploring Scala Native + Nix Flakes + Nix Devshell + Direnv.
 
+* https://scala-native.org/en/latest
+* https://github.com/numtide/devshell
+* https://nixos-and-flakes.thiscute.world/nixos-with-flakes/introduction-to-flakes
+* https://direnv.net
+
 The Nix sets up the development environment with:
-1. `clang`: C/C++ LLVM compiler
-1. `sn-bindgen`: Scala Native bindings generator
-1. `imagemagick`: `magickwand` API `C` for processing images
-1. `sndfile`: `C` library for working with WAV audio files
+1. `clang`: C/C++ LLVM compiler https://clang.llvm.org
+1. `sn-bindgen`: Scala Native bindings generator https://sn-bindgen.indoorvivants.com
+1. `imagemagick`: `magickwand` API `C` for processing images https://imagemagick.org
+1. `sndfile`: `C` library for working with WAV audio files https://libsndfile.github.io/libsndfile
 
 The `build.sbt` points to `clang` and `sn-bindgen` binaries provided by the Nix Devshell,
 and defines `sn-bindgen` bindings.
