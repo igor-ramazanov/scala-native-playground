@@ -1,6 +1,8 @@
 {
   inputs = {
     devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
     sn-bindgen.url = "github:igor-ramazanov/sn-bindgen/update-flake";
     sn-bindgen.inputs.nixpkgs.follows = "nixpkgs";
