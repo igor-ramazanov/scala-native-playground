@@ -1,11 +1,40 @@
 {
   inputs = {
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "flake-utils";
-    flake-utils.url = "github:numtide/flake-utils";
-    sn-bindgen.url = "github:igor-ramazanov/sn-bindgen/update-flake";
-    sn-bindgen.inputs.nixpkgs.follows = "nixpkgs";
+
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
+    systems.url = "github:nix-systems/default";
+
+    sn-bindgen = {
+      url = "github:igor-ramazanov/sn-bindgen/update-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # Can't override transitive inpuits, see: https://github.com/NixOS/nix/issues/5790
+        # sbt.inputs.flake-utils.follows = "flake-utils";
+        systems.follows = "systems";
+      };
+    };
+
+    typelevel-nix = {
+      url = "github:typelevel/typelevel-nix";
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
   };
 
   outputs =
