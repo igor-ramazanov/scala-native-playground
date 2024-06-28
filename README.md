@@ -59,3 +59,10 @@ $ sbt magickwand/nativeLink
 $ ./modules/magickwand/target/scala-3.5.0-RC2/magickwand
 # will produce the `./logo-extend.png` image
 ```
+
+## CI
+This repo uses `nix` based GitHub actions for caching the development environment dependencies,
+instead of the traditional approach with [`coursier/setup-action`](https://github.com/coursier/setup-action) and [`coursier/cache-action`](https://github.com/coursier/cache-action):
+1. https://github.com/DeterminateSystems/nix-installer-action
+1. https://github.com/DeterminateSystems/flake-checker-action
+1. https://github.com/DeterminateSystems/magic-nix-cache-action

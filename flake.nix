@@ -14,6 +14,8 @@
       inputs.systems.follows = "systems";
     };
 
+    nixpkgs.url = "github:NixOS/nixpkgs";
+
     sn-bindgen = {
       url = "github:igor-ramazanov/sn-bindgen/update-flake";
       inputs = {
