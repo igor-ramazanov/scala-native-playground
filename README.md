@@ -15,16 +15,12 @@ The Nix sets up the development environment with:
 The `build.sbt` points to `clang` and `sn-bindgen` binaries provided by the Nix Devshell,
 and defines `sn-bindgen` bindings.
 
-## Usage
-To run the `sndfile` program:
+## `sndfile` Usage
 
-Start an `sbt` shell,
-then `run <full path to an example .wav file>`,
-e.g. `run /home/igor/personal/scala-native-playground/file.wav`,
-and pick the `tech.igorramazanov.scalanativeplayground.SndFileMain` main class.
-
-Output:
 ```
+$ sbt sndfile/nativeLink
+$ ./modules/sndfile/target/scala-3.5.0-RC2/sndfile ./file.wav
+
 Channels: 2
 Format: 65538
 Frames: 7623627
@@ -43,9 +39,10 @@ Title: babangida - купол
 Tracknumber: null
 ```
 
-To run the `magickwand` program:
+## `magickwand` Usage
 
-Start an `sbt` shell,
-then `run` and pick the `tech.igorramazanov.scalanativeplayground.MagickWandMain` main class.
-
-The program will produce the `logo-extend.png` file (it uses the embeded into binary `logo:` image file).
+```
+$ sbt magickwand/nativeLink
+$ ./modules/magickwand/target/scala-3.5.0-RC2/magickwand
+xdg-open ./logo-extend.png
+```
