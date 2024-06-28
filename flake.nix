@@ -14,17 +14,17 @@
       inputs.systems.follows = "systems";
     };
 
-    systems.url = "github:nix-systems/default";
-
     sn-bindgen = {
       url = "github:igor-ramazanov/sn-bindgen/update-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        # Can't override transitive inpuits, see: https://github.com/NixOS/nix/issues/5790
+        # Can't override transitive inputs, see: https://github.com/NixOS/nix/issues/5790
         # sbt.inputs.flake-utils.follows = "flake-utils";
         systems.follows = "systems";
       };
     };
+
+    systems.url = "github:nix-systems/default";
 
     typelevel-nix = {
       url = "github:typelevel/typelevel-nix";
@@ -39,9 +39,10 @@
 
   outputs =
     { devshell
-    , nixpkgs
     , flake-utils
+    , nixpkgs
     , sn-bindgen
+    , typelevel-nix
     , ...
     }: flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
@@ -55,36 +56,29 @@
     in
     {
       formatter = pkgs.alejandra;
-      devShell = pkgs.devshell.mkShell {
+      devShell = pkgs.devshell.mkShell rec {
         name = "scala-native-playground";
-        motd = "Entered scala-native-playground development environment";
-        packages =
-          let
-            libs = pkgs.lib.flatten (builtins.map
-              (e: [
-                (pkgs.lib.getDev e)
-                (pkgs.lib.getLib e)
-              ]) [
+        imports = [ typelevel-nix.typelevelShell ];
+
+        packages = [ (pkgs.scalafix.override { jre = typelevelShell.jdk.package; }) ];
+
+        typelevelShell = {
+          jdk.package = pkgs.graalvm-ce;
+
+          native = {
+            enable = true;
+            libraries = [
               pkgs.imagemagick_light
               pkgs.libsndfile
               pkgs.sn-bindgen
               pkgs.zlib
-            ]);
-          in
-          [
-            pkgs.clang_18
-            pkgs.llvmPackages_18.libcxx
-          ] ++ libs;
-        env = [
-          {
-            name = "LIBRARY_PATH";
-            prefix = "$DEVSHELL_DIR/lib";
-          }
-          {
-            name = "C_INCLUDE_PATH";
-            prefix = "$DEVSHELL_DIR/include";
-          }
-        ];
+            ];
+          };
+
+          nodejs.enable = false;
+          sbtMicrosites.enable = false;
+        };
+
       };
     });
 }
